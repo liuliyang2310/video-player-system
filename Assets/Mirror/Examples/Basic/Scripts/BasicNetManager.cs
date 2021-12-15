@@ -26,8 +26,8 @@ namespace Mirror.Examples.Basic
 
             // increment the index after setting on player, so first player starts at 0
             clientIndex++;
-
             NetworkServer.AddPlayerForConnection(conn, go);
+            Debug.Log("OnServerAddPlayer：" + clientIndex);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Mirror.Examples.Basic
         // This is updated by UpdateData which is called from OnStartServer via InvokeRepeating
         [SyncVar(hook = nameof(OnPlayerDataChanged))]
         public int playerData;
-
+        
         // This is called by the hook of playerData SyncVar above
         void OnPlayerDataChanged(int oldPlayerData, int newPlayerData)
         {
