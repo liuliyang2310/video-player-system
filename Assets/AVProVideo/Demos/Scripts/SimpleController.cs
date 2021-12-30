@@ -229,7 +229,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 				GUILayout.Label("Loaded: " + _mediaPlayer.m_VideoPath);
 				GUILayout.Label(string.Format("Size: {0}x{1} FPS: {3} Duration: {2}ms", _width, _height, _mediaPlayer.Info.GetDurationMs(), _mediaPlayer.Info.GetVideoFrameRate().ToString("F2")));
 				GUILayout.Label("Updates: " + _mediaPlayer.TextureProducer.GetTextureFrameCount() + "    Rate: " + _mediaPlayer.Info.GetVideoDisplayRate().ToString("F1"));
-
+									//_mediaPlayer.TextureProducer.GetTextureTimeStamp 
 				GUILayout.BeginHorizontal();
 
 				// Fade option

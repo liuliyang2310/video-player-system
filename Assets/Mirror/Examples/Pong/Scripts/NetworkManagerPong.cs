@@ -18,7 +18,7 @@ namespace Mirror.Examples.Pong
             Transform start = numPlayers == 0 ? leftRacketSpawn : rightRacketSpawn;
             GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
             NetworkServer.AddPlayerForConnection(conn, player);
-
+            NetworkServer .Spawn (player );
             // spawn ball if two players
             if (numPlayers == 2)
             {

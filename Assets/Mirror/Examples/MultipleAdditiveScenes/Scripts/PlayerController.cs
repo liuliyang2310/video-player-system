@@ -3,36 +3,32 @@ using UnityEngine.SceneManagement;
 
 namespace Mirror.Examples.MultipleAdditiveScenes
 {
+    [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(NetworkTransform))]
-    [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : NetworkBehaviour
     {
         public CharacterController characterController;
-        public CapsuleCollider capsuleCollider;
 
         void OnValidate()
         {
             if (characterController == null)
                 characterController = GetComponent<CharacterController>();
-            if (capsuleCollider == null)
-                capsuleCollider = GetComponent<CapsuleCollider>();
-        }
 
-        void Start()
-        {
-            capsuleCollider.enabled = isServer;
+            characterController.enabled = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<NetworkTransform>().clientAuthority = true;
         }
 
         public override void OnStartLocalPlayer()
         {
-            characterController.enabled = true;
-
             Camera.main.orthographic = false;
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = new Vector3(0f, 3f, -8f);
             Camera.main.transform.localEulerAngles = new Vector3(10f, 0f, 0f);
+
+            characterController.enabled = true;
         }
 
         void OnDisable()
@@ -63,7 +59,7 @@ namespace Mirror.Examples.MultipleAdditiveScenes
 
         void Update()
         {
-            if (!isLocalPlayer || !characterController.enabled)
+            if (!isLocalPlayer || characterController == null || !characterController.enabled)
                 return;
 
             horizontal = Input.GetAxis("Horizontal");
@@ -95,7 +91,7 @@ namespace Mirror.Examples.MultipleAdditiveScenes
 
         void FixedUpdate()
         {
-            if (!isLocalPlayer || characterController == null)
+            if (!isLocalPlayer || characterController == null || !characterController.enabled)
                 return;
 
             transform.Rotate(0f, turn * Time.fixedDeltaTime, 0f);

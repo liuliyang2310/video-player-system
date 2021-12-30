@@ -4,7 +4,7 @@ namespace Mirror.Examples.Pong
 {
     public class Player : NetworkBehaviour
     {
-        public float speed = 30;
+        public float speed = 1500;
         public Rigidbody2D rigidbody2d;
 
         // need to use FixedUpdate for rigidbody
